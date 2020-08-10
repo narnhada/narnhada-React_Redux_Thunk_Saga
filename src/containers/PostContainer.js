@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { getPost } from "../modules/posts";
+import { useDispatch, useSelector } from "react-redux";
 import Post from "../components/Post";
+import { getPost } from "../modules/posts"; // api/getPost자꾸 가져와서 에러났음
 
-function PostContainer({ postId }) {
+function PostCointainer({ postId }) {
   const { data, loading, error } = useSelector((state) => state.posts.post);
   const dispatch = useDispatch();
 
@@ -11,11 +11,11 @@ function PostContainer({ postId }) {
     dispatch(getPost(postId));
   }, [dispatch, postId]);
 
-  if (loading) return <div>...로딩주웅</div>;
-  if (error) return <div>에러 어레 ㅇ럼ㄴㅇㄹ</div>;
+  if (loading && !data) return <div>...로딩중</div>;
+  if (error) return <div>...에..ㄹ ㅓ ㅈ ㅜㄱ옂...ㅝ</div>;
   if (!data) return null;
 
   return <Post post={data} />;
 }
 
-export default PostContainer;
+export default PostCointainer;

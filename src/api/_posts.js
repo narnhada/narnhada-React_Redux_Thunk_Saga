@@ -1,0 +1,31 @@
+const sleep = (n) => new Promise((resolve) => setTimeout(resolve, n));
+
+const posts = [
+  {
+    id: 1,
+    title: "리덕스 미들웨어를 배워봅시다",
+    body: "리덕스 미들웨어 너무 어렵다 ㅠㅠ.",
+  },
+  {
+    id: 2,
+    title: "redux-thunk를 사용해봅시다",
+    body:
+      "redux-thunk를 사용해서 비동기 작업을 처리까지는 괜찮은데 리팩토링 너무 어렵다 ㅜㅜ!",
+  },
+  {
+    id: 3,
+    title: "redux-saga도 사용해봅시다",
+    body:
+      "나중엔 redux-saga를 사용해서 비동기 작업을 처리하는 방법어려웡 제너레이터 함수 쓰바.",
+  },
+];
+
+export const getPosts = async () => {
+  await sleep(500); //0.5초 후 posts배열 가져옴
+  return posts;
+};
+
+export const getPostById = async (id) => {
+  await sleep(500);
+  return posts.find((post) => post.id === id);
+};
