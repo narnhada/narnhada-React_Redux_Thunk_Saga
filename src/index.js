@@ -3,18 +3,23 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import rootReducer from "./modules";
+import rootReducer, { rootSaga } from "./modules";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
+import { composeWithDevTools } from "redux-devtools-extension"; // 직접 쳐줘야됨
 import logger from "redux-logger";
-import ReduxThunk from "redux-thunk"; // 비동기 처리위해 사용
+import ReduxThunk from "redux-thunk"; // 비동기 처리위해 사용 , // 직접 쳐줘야됨
 import { BrowserRouter } from "react-router-dom";
+import createSagaMiddleware from "redux-saga"; // 직접 쳐줘야됨
+
+const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(ReduxThunk, logger))
+  composeWithDevTools(applyMiddleware(ReduxThunk, sagaMiddleware, logger))
 );
+
+sagaMiddleware.run(rootSaga); // 사가 실행
 
 ReactDOM.render(
   <BrowserRouter>
